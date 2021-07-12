@@ -1,12 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 //
-import HomePage from './pages/homePages/Home.Pages';
+import { Router } from "./routes/RootRouter";
 
 function App() {
   return (
     <div className="App">
-      <HomePage/>
+      <Router />
     </div>
   );
 }
