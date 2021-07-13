@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./SignIn.Styles.scss";
 import FormInput from "../form-input/Form-Input.Component";
 import CustomButton from "../custom-button/Custom-Button.Component";
+import { signInWithGoogle } from "../../../firebase/firebase.utils";
 
 const SignIn = () => {
   const [user, setUser] = useState({
@@ -48,8 +49,9 @@ const SignIn = () => {
           onChange={_handleChange}
         />
 
-        <CustomButton type="submit" value="Submit Form">
-          Sign in
+        <CustomButton type="submit">Sign in</CustomButton>
+        <CustomButton onClick={signInWithGoogle}>
+          Sign in with Google
         </CustomButton>
       </form>
     </div>
