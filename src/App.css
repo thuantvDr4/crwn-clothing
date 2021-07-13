@@ -1,8 +1,8 @@
 body {
-  font-family: "Open Sans Condensed", sans-serif;
+  font-family: "Courier Prime", monospace;
   padding: 20px 60px;
 }
 a {
   text-decoration: none;
-  color: black;
+  color: #444444;
 }

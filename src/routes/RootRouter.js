@@ -9,6 +9,7 @@ import {
 //Pages
 import HomePage from "../pages/homePages/Home.Pages";
 import ShopPage from "../pages/shopPages/Shop.Pages";
+import SignInAndSignUpPage from "../pages/authPages/SignIn-SignUp.Page";
 
 function Hats(props) {
   const match = useRouteMatch();
@@ -25,6 +26,7 @@ export const Router = () => {
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/shop" component={ShopPage} />
+      <Route path="/signin" component={SignInAndSignUpPage} />
     </Switch>
   );
 };
