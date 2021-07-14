@@ -20,16 +20,19 @@ export default () => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
+          // save local
+          // setCurrentUser({
+          //   id: snapShot.id,
+          //   ...snapShot.data(),
+          // });
+
           //save to -store
           setUser(dispatch, { id: snapShot.id, ...snapShot.data() });
         });
       }
-      //
-      setCurrentUser(userAuth);
+      //save local
+      // setCurrentUser(userAuth);
+
       //save to store
       setUser(dispatch, userAuth);
       //
@@ -46,5 +49,5 @@ export default () => {
     //
   }
 
-  return { currentUser, signOutByFirebase };
+  return { signOutByFirebase };
 };

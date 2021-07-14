@@ -3,10 +3,9 @@ import "./SignIn.Styles.scss";
 import FormInput from "../form-input/Form-Input.Component";
 import CustomButton from "../custom-button/Custom-Button.Component";
 import { auth, signInWithGoogle } from "../../../firebase/firebase.utils";
-import { useHistory } from "react-router-dom";
 
 const SignIn = () => {
-  const history = useHistory();
+  //
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -23,8 +22,6 @@ const SignIn = () => {
         email: "",
         password: "",
       });
-      // go to home-page
-      history.push("/");
       //
     } catch (error) {
       console.log("[error sign-in]---", error);
