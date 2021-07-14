@@ -30,7 +30,7 @@ const SignIn = () => {
       <h2 className="title">I already have an account</h2>
       <span className="sub-title">Sign in with your email and password</span>
 
-      <form className="form" onSubmit={_onSubmit}>
+      <form onSubmit={_onSubmit}>
         <FormInput
           label="Email"
           type="email"
@@ -49,10 +49,12 @@ const SignIn = () => {
           onChange={_handleChange}
         />
 
-        <CustomButton type="submit">Sign in</CustomButton>
-        <CustomButton onClick={signInWithGoogle}>
-          Sign in with Google
-        </CustomButton>
+        <div className="buttons">
+          <CustomButton type="submit">Sign in</CustomButton>
+          <CustomButton isGoogleSignIn onClick={signInWithGoogle}>
+            Sign in with Google
+          </CustomButton>
+        </div>
       </form>
     </div>
   );

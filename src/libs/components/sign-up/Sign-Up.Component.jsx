@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import "./Sign-Up.Styles.scss";
 import FormInput from "../form-input/Form-Input.Component";
 import CustomButton from "../custom-button/Custom-Button.Component";
+import {
+  auth,
+  createUserProfileDocument,
+} from "../../../firebase/firebase.utils";
 
+//
 const SignUp = () => {
   const [user, setUser] = useState({
     displayName: "",
@@ -11,10 +16,33 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
-  //_onSubmit
-  function _onSubmit(event) {
+  //handleSubmit
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log(user);
+    //
+    const { displayName, email, password, confirmPassword } = user;
+    if (password !== confirmPassword) {
+      alert("password don't match");
+      return;
+    }
+    //
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      await createUserProfileDocument(user, { displayName });
+      //clear info
+      setUser({
+        displayName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      console.log("[error create user]---", error.message);
+      alert(error.message);
+    }
   }
 
   //handleChange
@@ -30,7 +58,7 @@ const SignUp = () => {
     <div className="sign-up">
       <h2 className="title">I do not have an account</h2>
       <span className="sub-title">Sign up with your email and password</span>
-      <form onSubmit={_onSubmit} className="form">
+      <form onSubmit={handleSubmit} className="form">
         <FormInput
           label="Display Name"
           type="text"

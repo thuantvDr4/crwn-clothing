@@ -1,6 +1,8 @@
 .signIn-signUp {
   display: flex;
   flex-direction: row;
+  width: 980px;
   align-items: flex-start;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin: 30px auto;
 }
