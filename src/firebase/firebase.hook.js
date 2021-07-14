@@ -6,8 +6,11 @@ import {
   signInWithGoogle,
   createUserProfileDocument,
 } from "./firebase.utils";
+import { setUser } from "../redux/user/user.actions";
+import { useDispatch } from "react-redux";
 
 export default () => {
+  const dispatch = useDispatch();
   const [currentUser, setCurrentUser] = useState(null);
 
   //
@@ -21,10 +24,15 @@ export default () => {
             id: snapShot.id,
             ...snapShot.data(),
           });
+          //save to -store
+          setUser(dispatch, { id: snapShot.id, ...snapShot.data() });
         });
       }
       //
       setCurrentUser(userAuth);
+      //save to store
+      setUser(dispatch, userAuth);
+      //
     });
     // clean-up
     return () => unsubscribeFromAuth;
@@ -33,6 +41,9 @@ export default () => {
   //signOutByFirebase
   function signOutByFirebase() {
     auth.signOut();
+    //reset store
+    setUser(dispatch, null);
+    //
   }
 
   return { currentUser, signOutByFirebase };

@@ -6,9 +6,9 @@ import Header from "./libs/components/header/Header.Component";
 import useFirebase from "./firebase/firebase.hook";
 
 function App() {
-  const { currentUser } = useFirebase();
-  console.log("[currentUser]---", currentUser);
-
+  // khoi tao firebase
+  const {} = useFirebase();
+  //
   return (
     <div className="App">
       <Header />

@@ -6,9 +6,11 @@ import {
   auth,
   createUserProfileDocument,
 } from "../../../firebase/firebase.utils";
+import { useHistory } from "react-router-dom";
 
 //
 const SignUp = () => {
+  const history = useHistory();
   const [user, setUser] = useState({
     displayName: "",
     email: "",
@@ -39,6 +41,9 @@ const SignUp = () => {
         password: "",
         confirmPassword: "",
       });
+      //go to home-page
+      history.push("/");
+      //
     } catch (error) {
       console.log("[error create user]---", error.message);
       alert(error.message);
