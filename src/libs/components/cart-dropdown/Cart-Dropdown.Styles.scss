@@ -2,6 +2,7 @@
   position: absolute;
   top: 80px;
   right: 0;
+  margin-right: 10px;
   z-index: 5;
   display: flex;
   flex-direction: column;
@@ -22,5 +23,11 @@
   }
   button {
     margin-top: auto;
+    margin-right: 20px;
+  }
+  .empty-message {
+    text-align: center;
+    font-size: 18px;
+    margin: 50px auto;
   }
 }

@@ -11,6 +11,7 @@ import {
 import HomePage from "../pages/homePages/Home.Pages";
 import ShopPage from "../pages/shopPages/Shop.Pages";
 import SignInAndSignUpPage from "../pages/authPages/SignIn-SignUp.Page";
+import CheckOutPage from "../pages/checkout/CheckOut.Page";
 import { useSelector } from "react-redux";
 import { authSelector } from "../redux/selector";
 
@@ -37,6 +38,7 @@ export const Router = () => {
           currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
         }
       />
+      <Route exact path="/checkout" component={CheckOutPage} />
     </Switch>
   );
 };

@@ -4,6 +4,7 @@ const default_state = {
   hidden: true,
   cartItems: [],
   cartTotal: 0,
+  priceTotal: 0,
 };
 
 const cartReducer = (state = default_state, action) => {
@@ -24,6 +25,12 @@ const cartReducer = (state = default_state, action) => {
       return {
         ...state,
         cartTotal: action.payload,
+      };
+
+    case cartTypes.CAL_PRICE_TOTAL:
+      return {
+        ...state,
+        priceTotal: action.payload,
       };
 
     default:

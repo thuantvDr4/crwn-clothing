@@ -4,19 +4,30 @@ import { useSelector } from "react-redux";
 import CustomButton from "../custom-button/Custom-Button.Component";
 import CartItem from "../cart-item/CartItem.Component";
 import { cartSelector } from "../../../redux/selector";
+import { useHistory } from "react-router-dom";
 
 const CartDropdown = () => {
+  const history = useHistory();
   const { cartItems } = useSelector(cartSelector);
+
+  //
+  function _handleCheckout() {
+    history.push("/checkout");
+  }
+
+  //---------->
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
-        {!cartItems
-          ? null
-          : cartItems.map((cardItem, index) => {
-              return <CartItem key={"KEY:" + index} item={cardItem} />;
-            })}
+        {!cartItems.length ? (
+          <span className="empty-message">Your cart is empty</span>
+        ) : (
+          cartItems.map((cardItem, index) => {
+            return <CartItem key={"KEY:" + index} item={cardItem} />;
+          })
+        )}
       </div>
-      <CustomButton>GO TO CHECK OUT</CustomButton>
+      <CustomButton onClick={_handleCheckout}>GO TO CHECK OUT</CustomButton>
     </div>
   );
 };
