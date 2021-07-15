@@ -5,11 +5,15 @@ import { useSelector } from "react-redux";
 
 import { ReactComponent as Logo } from "../../../assets/crown.svg";
 import useFirebase from "../../../firebase/firebase.hook";
-import { authSelector } from "../../../redux/selector";
+import { authSelector, cartSelector } from "../../../redux/selector";
+import CartIcon from "../cart-icon/Cart-Icon.Component";
+import CartDropdown from "../cart-dropdown/Cart-Dropdown.Component";
 
+//----------------->
 const Header = () => {
   // Redux
   const { currentUser } = useSelector(authSelector);
+  const { hidden } = useSelector(cartSelector);
   //Hook
   const { signOutByFirebase } = useFirebase();
 
@@ -20,7 +24,7 @@ const Header = () => {
       <Link className="logo-container" to="/">
         <Logo className="logo" />
       </Link>
-      {/* --group-- */}
+      {/* --group option-- */}
       <div className="options-ctn">
         <Link className="option" to="/shop">
           SHOP
@@ -37,7 +41,14 @@ const Header = () => {
             SIGN IN
           </Link>
         )}
+        {/* ----cart--- */}
+        <div>
+          <CartIcon />
+        </div>
       </div>
+      {/* --cart-dropdown-- */}
+      {hidden ? null : <CartDropdown />}
+      {/* ---- */}
     </div>
   );
 };
