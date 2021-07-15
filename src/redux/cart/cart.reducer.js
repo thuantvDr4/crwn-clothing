@@ -2,6 +2,8 @@
 import cartTypes from "./cart.types";
 const default_state = {
   hidden: true,
+  cartItems: [],
+  cartTotal: 0,
 };
 
 const cartReducer = (state = default_state, action) => {
@@ -10,6 +12,18 @@ const cartReducer = (state = default_state, action) => {
       return {
         ...state,
         hidden: !state.hidden,
+      };
+
+    case cartTypes.UPDATE_CART:
+      return {
+        ...state,
+        cartItems: action.payload,
+      };
+
+    case cartTypes.CAL_CART_TOTAL:
+      return {
+        ...state,
+        cartTotal: action.payload,
       };
 
     default:
