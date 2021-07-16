@@ -32,8 +32,8 @@ const Collection = () => {
   });
   //
   useEffect(() => {
-    const urlId = match.params.categoryId;
-    const newCollection = getCollectionId(collections, COLLECTION_MAP[urlId]);
+    const categoryId = match.params.categoryId;
+    const newCollection = getCollectionId(collections, categoryId);
     //
     updateCollection(dispatch, newCollection);
     //

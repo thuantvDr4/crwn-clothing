@@ -7,9 +7,7 @@ export function updateCollection(dispatch, newCollection) {
   });
 }
 //
-export const getCollectionId = (collections, collectionId) => {
-  const newCollection = collections.find(
-    (collection) => collection.id === collectionId
-  );
+export const getCollectionId = (collections, collectionUrl) => {
+  const newCollection = collections[collectionUrl];
   return newCollection;
 };
