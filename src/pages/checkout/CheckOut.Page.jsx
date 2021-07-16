@@ -5,6 +5,7 @@ import { cartSelector } from "../../redux/selector";
 import CheckoutItem from "../../libs/components/checkout-item/Checkout-Item.Component";
 import { calPriceTotal } from "../../redux/cart/cart.actions";
 import StripeCheckoutButton from "../../libs/components/stripe-button/StripeButton.component";
+import { updateCart } from "../../redux/cart/cart.actions";
 
 // ----------->
 const CheckOut = () => {
@@ -17,6 +18,13 @@ const CheckOut = () => {
   useEffect(() => {
     calPriceTotal(dispatch, cartItems);
   }, [cartItems]);
+
+  //handlePaymentSuccess
+  function handlePaymentSuccess() {
+    //
+    updateCart(dispatch, []);
+    //
+  }
 
   //--------------->
   return (
@@ -56,13 +64,20 @@ const CheckOut = () => {
         <span>TOTAL: ${priceTotal}</span>
       </div>
       {/* ----payment--- */}
-      <StripeCheckoutButton price={priceTotal} />
-      {/* ----- */}
-      <div className="warning">
-        *Please use the following test credit card for payments*
-        <br />
-        4242 4242 4242 4242 ------Exp:07/21---CVV:123
-      </div>
+      {priceTotal === 0 ? null : (
+        <>
+          <StripeCheckoutButton
+            price={priceTotal}
+            paymentSuccess={handlePaymentSuccess}
+          />
+          {/* ----- */}
+          <div className="warning">
+            *Please use the following test credit card for payments*
+            <br />
+            4242 4242 4242 4242 ------Exp:07/21---CVV:123
+          </div>
+        </>
+      )}
     </div>
   );
 };

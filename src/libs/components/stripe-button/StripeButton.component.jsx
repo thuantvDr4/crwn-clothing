@@ -4,7 +4,7 @@ import StripeCheckout from "react-stripe-checkout";
 
 const CODE_TEST = "4242 4242 4242 4242 -----Exp:07/21---CVV:123";
 
-const StripeCheckoutButton = ({ price }) => {
+const StripeCheckoutButton = ({ price, paymentSuccess }) => {
   const priceForStripe = price * 100;
   const publishablekey =
     "pk_test_51JDrOPBCQQVQ4dX2Kd6qcFPgSvoIYgy3yxDP3GfPd7kL2GzIOA0AgK6M3FF1H1jJZ6smGaaSi6RW9Y0K664vjpbE00Fau2Oc6F";
@@ -13,6 +13,7 @@ const StripeCheckoutButton = ({ price }) => {
   function onToken(token) {
     console.log("[token]----", token);
     alert("Payment successful");
+    paymentSuccess && paymentSuccess();
   }
 
   //----------->
