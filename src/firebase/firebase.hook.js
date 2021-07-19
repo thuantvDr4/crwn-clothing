@@ -5,12 +5,15 @@ import {
   auth,
   signInWithGoogle,
   createUserProfileDocument,
+  addCollectionAndDocuments,
 } from "./firebase.utils";
 import { setUser } from "../redux/user/user.actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { shopSelector } from "../redux/selector";
 
 export default () => {
   const dispatch = useDispatch();
+  const { collections } = useSelector(shopSelector);
   const [currentUser, setCurrentUser] = useState(null);
 
   //
@@ -49,5 +52,16 @@ export default () => {
     //
   }
 
-  return { signOutByFirebase };
+  //createCollectionsData
+  async function createCollectionsData() {
+    const _collectioArray = Object.values(collections);
+    //
+    await addCollectionAndDocuments(
+      "collections",
+      _collectioArray.map(({ title, items }) => ({ title, items }))
+    );
+    //
+  }
+
+  return { signOutByFirebase, createCollectionsData };
 };
