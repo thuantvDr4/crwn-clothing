@@ -12,7 +12,7 @@ import collectionReducer from "./collection/collection.reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart"],
+  whitelist: ["cart", "shop", "collection"],
 };
 //
 const rootReducer = combineReducers({

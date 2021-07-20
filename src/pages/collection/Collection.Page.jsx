@@ -9,31 +9,31 @@ import {
 } from "../../redux/collection/collection.actions";
 
 import CollectionItem from "../../libs/components/collection-item/Collection-Item.Component";
+import WithWrapComponent from "../../libs/components/HOC/WrapComponent";
 //
-const COLLECTION_MAP = {
-  hats: 1,
-  sneakers: 2,
-  jackets: 3,
-  womens: 4,
-  mens: 5,
-};
 
 //
 const Collection = () => {
   //
   const dispatch = useDispatch();
   const match = useRouteMatch();
-  const { collections } = useSelector(shopSelector);
   const { selectCollection } = useSelector(collectionSelector);
+  const { collections } = useSelector(shopSelector);
+
   //
   const [myCollection, setMyCollection] = useState({
     title: "",
     items: [],
   });
+
+  const [isLoading, setIsLoading] = useState(true);
   //
   useEffect(() => {
     const categoryId = match.params.categoryId;
+
+    if (!collections) return;
     const newCollection = getCollectionId(collections, categoryId);
+
     //
     updateCollection(dispatch, newCollection);
     //
@@ -41,13 +41,26 @@ const Collection = () => {
 
   //
   useEffect(() => {
+    //
     if (selectCollection) {
       setMyCollection(selectCollection);
+      //
+      setIsLoading(false);
+      //
+      return;
     }
+    //waiting only 1 minute
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    //
   }, [selectCollection]);
+
+  //
+
   //
   return (
-    <div className="collection-page">
+    <WithWrapComponent className="collection-page" isLoading={isLoading}>
       <h2 className="title">{myCollection.title}</h2>
       <div className="items">
         {!myCollection.items.length
@@ -62,7 +75,7 @@ const Collection = () => {
               );
             })}
       </div>
-    </div>
+    </WithWrapComponent>
   );
 };
 

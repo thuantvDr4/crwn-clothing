@@ -9,10 +9,13 @@ import useFirebase from "./firebase/firebase.hook";
 function App() {
   // khoi tao firebase
   const { createCollectionsData } = useFirebase();
+
   //
   useEffect(() => {
     // createCollectionsData();
   }, []);
+
+  //
   return (
     <div className="App">
       <Header />

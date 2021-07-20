@@ -2,12 +2,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import {
+  firestore,
   auth,
   signInWithGoogle,
   createUserProfileDocument,
   addCollectionAndDocuments,
+  convertCollectionsSnapshotToMap,
 } from "./firebase.utils";
 import { setUser } from "../redux/user/user.actions";
+import { updateShopCollections } from "../redux/shop/shop.actions";
 import { useDispatch, useSelector } from "react-redux";
 import { shopSelector } from "../redux/selector";
 
@@ -42,6 +45,25 @@ export default () => {
     });
     // clean-up
     return () => unsubscribeFromAuth;
+  }, []);
+
+  //get collection from firebase-store
+  useEffect(() => {
+    //
+    let unsubcribeFromSnapshot = null;
+    //
+    const collectionRef = firestore.collection("collections");
+    collectionRef.onSnapshot(async (snapshot) => {
+      //
+      const _collectionObj = convertCollectionsSnapshotToMap(snapshot);
+
+      //save to store
+      updateShopCollections(dispatch, _collectionObj);
+      //
+    });
+
+    //clean
+    return () => unsubcribeFromSnapshot;
   }, []);
 
   //signOutByFirebase

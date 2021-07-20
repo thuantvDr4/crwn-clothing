@@ -3,57 +3,37 @@ import "./CollectionOverview.styles.scss";
 import { useSelector, useDispatch } from "react-redux";
 import CollectionPreview from "../collections/CollectionPreview.Component";
 import { shopSelector } from "../../../redux/selector";
-import { updateShopCollections } from "../../../redux/shop/shop.actions";
-import {
-  firestore,
-  convertCollectionsSnapshotToMap,
-} from "../../../firebase/firebase.utils";
 
+//-------------->
+import WithWrapComponent from "../HOC/WrapComponent";
 //------------------->COMPONENT
 const CollectionOverview = () => {
-  //
-  const dispatch = useDispatch();
   //
   const { collections } = useSelector(shopSelector);
   //
   const [myCollections, setMyCollections] = useState([]);
-
-  //get collection from firebase-store
-  useEffect(() => {
-    //
-    let unsubcribeFromSnapshot = null;
-    //
-    const collectionRef = firestore.collection("collections");
-    collectionRef.onSnapshot(async (snapshot) => {
-      //
-      const _collectionObj = convertCollectionsSnapshotToMap(snapshot);
-
-      //save to store
-      updateShopCollections(dispatch, _collectionObj);
-      //
-    });
-
-    //clean
-    return () => unsubcribeFromSnapshot;
-  }, []);
+  const [isLoading, setIsLoading] = useState(true);
 
   //get collection from redux-store
   useEffect(() => {
+    //
     if (collections) {
       const _collectionArray = Object.values(collections);
       setMyCollections(_collectionArray);
+      //
+      setIsLoading(false);
     }
   }, [collections]);
 
   //
   return (
-    <div className="collection-overview">
+    <WithWrapComponent className="collection-overview" isLoading={isLoading}>
       {!myCollections.length
         ? null
         : myCollections.map((collection, index) => {
             return <CollectionPreview key={"KEY:" + index} {...collection} />;
           })}
-    </div>
+    </WithWrapComponent>
   );
 };
 
